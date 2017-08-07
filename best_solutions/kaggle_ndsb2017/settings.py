@@ -7,13 +7,16 @@ MEAN_PIXEL_VALUE_NODULE = 41
 LUNA_SUBSET_START_INDEX = 1
 SEGMENTER_IMG_SIZE = 320
 
-BASE_DIR_SSD = "C:/werkdata/kaggle/ndsb3/"
-BASE_DIR = "D:/werkdata/kaggle/ndsb3/"
-EXTRA_DATA_DIR = "resources/"
-NDSB3_RAW_SRC_DIR = BASE_DIR + "ndsb_raw/stage12/"
-LUNA16_RAW_SRC_DIR = BASE_DIR + "luna_raw/"
+DATA_DIR = "E:/projects/github/tensorflow_keras_kaggle_dsb2017.git/trunk/data/"
 
-NDSB3_EXTRACTED_IMAGE_DIR = BASE_DIR_SSD + "ndsb3_extracted_images/"
-LUNA16_EXTRACTED_IMAGE_DIR = BASE_DIR_SSD + "luna16_extracted_images/"
-NDSB3_NODULE_DETECTION_DIR = BASE_DIR_SSD + "ndsb3_nodule_predictions/"
+#BASE_DIR_SSD = "../../data/stage1/"
+#BASE_DIR = "D:/werkdata/kaggle/ndsb3/"
+#EXTRA_DATA_DIR = "resources/"
+
+NDSB3_RAW_SRC_DIR = DATA_DIR + "original/stage1/"
+LUNA16_RAW_SRC_DIR = DATA_DIR + "original/luna/"
+
+NDSB3_EXTRACTED_IMAGE_DIR = DATA_DIR + "processed/ndsb3_extracted_images/"
+LUNA16_EXTRACTED_IMAGE_DIR = DATA_DIR + "processed/luna16_extracted_images/"
+NDSB3_NODULE_DETECTION_DIR = DATA_DIR + "processed/ndsb3_nodule_predictions/"
 

@@ -1,3 +1,4 @@
+import math
 import settings
 import helpers
 import glob
@@ -104,7 +105,7 @@ def extract_dicom_images(clean_targetdir_first=False, only_patient_id=None):
 
     if only_patient_id is None:
         dirs = os.listdir(settings.NDSB3_RAW_SRC_DIR)
-        if True:
+        if False:
             pool = Pool(8)
             pool.map(extract_dicom_images_patient, dirs)
         else:
