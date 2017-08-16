@@ -13,6 +13,8 @@ from skimage.filters import roberts, sobel
 from scipy import ndimage as ndi
 import math
 import pandas
+import matplotlib.pyplot as plt
+
 
 def compute_dice(label_img, pred_img, p_threshold=0.5):
     p = pred_img.astype(numpy.float)
@@ -262,12 +264,32 @@ def print_tabbed(value_list, justifications=None, map_id=None, show_map_idx=True
 
 
 def get_segmented_lungs(im, plot=False):
+    #plt.subplot(331)
+    #plt.imshow(im, cmap='gray')
+    #plt.title('original image')
+    #plt.pause(0.1)
+
     # Step 1: Convert into a binary image.
     binary = im < -400
+    #plt.subplot(332)
+    #plt.imshow(binary, cmap='gray')
+    #plt.title('binary image')
+    #plt.pause(0.1)
+
     # Step 2: Remove the blobs connected to the border of the image.
     cleared = clear_border(binary)
+    #plt.subplot(333)
+    #plt.imshow(cleared, cmap='gray')
+    #plt.title('remove blobs connected to image border')
+    #plt.pause(0.1)
+
     # Step 3: Label the image.
     label_image = label(cleared)
+    #plt.subplot(334)
+    #plt.imshow(label_image)
+    #plt.title('labelling')
+    #plt.pause(0.1)
+
     # Step 4: Keep the labels with 2 largest areas.
     areas = [r.area for r in regionprops(label_image)]
     areas.sort()
@@ -277,18 +299,42 @@ def get_segmented_lungs(im, plot=False):
                 for coordinates in region.coords:
                        label_image[coordinates[0], coordinates[1]] = 0
     binary = label_image > 0
+    #plt.subplot(335)
+    #plt.imshow(binary)
+    #plt.title('keep the labels with 2 largest areas')
+    #plt.pause(0.1)
+
     # Step 5: Erosion operation with a disk of radius 2. This operation is seperate the lung nodules attached to the blood vessels.
     selem = disk(2)
     binary = binary_erosion(binary, selem)
+    #plt.subplot(336)
+    #plt.imshow(binary, cmap='gray')
+    #plt.title('erosion')
+    #plt.pause(0.1)
+
     # Step 6: Closure operation with a disk of radius 10. This operation is    to keep nodules attached to the lung wall.
     selem = disk(10) # CHANGE BACK TO 10
     binary = binary_closing(binary, selem)
+    #plt.subplot(337)
+    #plt.imshow(binary, cmap='gray')
+    #plt.title('closure')
+    #plt.pause(0.1)
+
     # Step 7: Fill in the small holes inside the binary mask of lungs.
     edges = roberts(binary)
     binary = ndi.binary_fill_holes(edges)
+    #plt.subplot(338)
+    #plt.imshow(binary, cmap='gray')
+    #plt.title('fill in the small holes')
+    #plt.pause(0.1)
+
     # Step 8: Superimpose the binary mask on the input image.
     get_high_vals = binary == 0
     im[get_high_vals] = -2000
+    #plt.imshow(binary, cmap='gray')
+    #plt.title('superimpose')
+    #plt.pause(0.1)
+
     return im, binary
 
 
