@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from skimage import measure, morphology
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-DATA_DIR = '../data/sample_images/'
+DATA_DIR = '../data/original/sample_images/'
 patients = os.listdir(DATA_DIR)
 patients.sort()
 
